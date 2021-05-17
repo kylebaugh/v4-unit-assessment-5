@@ -26,9 +26,10 @@ export function logoutUser(){
 export default function reducer(state = initialState, action){
     switch(action.type){
         case UPDATE_USER:
-            return {...state, user: action.payload}
+            // console.log(state, action.payload)
+            return {...state, username: action.payload.username, profile_pic: action.payload.profile_pic}
         case LOGOUT_USER:
-            return {...state, users: action.payload}
+            return initialState
         default:
             return {...state}
 

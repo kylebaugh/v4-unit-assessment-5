@@ -42,15 +42,16 @@ module.exports = {
     
     createPost: (req, res) => {
       //code here
-      const post = req.app.get('db')
+      const db = req.app.get('db')
       const {id} = req.session.user
       const {title, img, content} = req.body
       const date = new Date
+      console.log(id)
       if(id){
-        db.create_post([id, title, img, content, date])
-        .then(res.status(200).send(post.data))
+        db.post.create_post([id, title, img, content, date])
+        .then(res.sendStatus(200))
       }else{
-        res.status(403).send("Can't create post")
+        res.sendStatus(403)
       }
     },
 

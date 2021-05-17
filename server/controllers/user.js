@@ -20,7 +20,6 @@ module.exports = {
     login: async (req, res) => {
         const db = req.app.get('db')
         const {username, password} = req.body
-        // {user} = req.session
         const [existingUser] = await db.user.find_user_by_username(username)
         if(!existingUser){
             return res.status(401).send('User not found')
@@ -31,6 +30,7 @@ module.exports = {
         }
         delete existingUser.password
         req.session.user = existingUser
+        // console.log(`Session User is ${req.session.user}`)
         return res.status(200).send(req.session.user)
     },
 
@@ -42,7 +42,7 @@ module.exports = {
     getUser: async (req, res) => {
         if(!req.session.user){
             return res.status(401).send('User not found')
-        }
-        return res.status(200).send(req.session.user)
+        }else{
+        return res.status(200).send(req.session.user)}
     }
 }
